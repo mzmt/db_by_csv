@@ -4,7 +4,7 @@ class Database
   def initialize
     unless File.exist?('db.csv')
       CSV.open('db.csv', 'w') do |column|
-        column << ['A', 'B', 'C']
+        column << ['id']
       end
     end
   end
@@ -12,15 +12,27 @@ class Database
   def add_column(value)
     csv = CSV.read('db.csv')
     CSV.open('db.csv', 'w') do |column|
-      csv[0] << value
-      column << csv[0]
+      array = Array.new
+      array << 'id'
+      unless csv[0].nil?
+        csv[0].shift
+        array += csv[0]
+      end
+      array << value
+      column << array
     end
   end
 
-  def add_row(value)
+  def create_record(value)
+  end
+
+  def update_record(value)
+  end
+
+  def delete_record(value)
   end
 end
 
 db = Database.new
-value = 'apple'
-db.add_column(value)
+db.add_column('apple')
+# db.add_row()
